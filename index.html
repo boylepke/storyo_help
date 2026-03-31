@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>A Story Every Day — Manual</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@400;600;700;800&family=Fredoka+One&display=swap" rel="stylesheet"/>
+  <style>
+    :root {
+      --bg:      #0A0818;
+      --bg2:     #130F26;
+      --accent:  #A78BFA;
+      --gold:    #FCD34D;
+      --text:    #E0E7FF;
+      --muted:   #6B7DB3;
+      --r: 220px; /* orbit radius desktop */
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html, body { height: 100%; }
+
+    body {
+      font-family: 'Baloo 2', sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 100%;
+      overflow: hidden;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* ── Canvas fills viewport ── */
+    .scene {
+      position: relative;
+      width: 100vmin;
+      height: 100vmin;
+      max-width: 700px;
+      max-height: 700px;
+    }
+
+    /* ── Stars ── */
+    .stars {
+      position: fixed; inset: 0; pointer-events: none; z-index: 0;
+      background:
+        radial-gradient(1px 1px at  7% 12%, rgba(255,255,255,.7) 0%, transparent 100%),
+        radial-gradient(1.5px 1.5px at 18% 35%, rgba(255,255,255,.5) 0%, transparent 100%),
+        radial-gradient(1px 1px at 28%  6%, rgba(255,255,255,.8) 0%, transparent 100%),
+        radial-gradient(2px 2px at 42% 22%, rgba(255,255,255,.4) 0%, transparent 100%),
+        radial-gradient(1px 1px at 55% 14%, rgba(255,255,255,.6) 0%, transparent 100%),
+        radial-gradient(1px 1px at 68%  8%, rgba(255,255,255,.5) 0%, transparent 100%),
+        radial-gradient(1.5px 1.5px at 80% 28%, rgba(255,255,255,.7) 0%, transparent 100%),
+        radial-gradient(1px 1px at 90% 18%, rgba(255,255,255,.4) 0%, transparent 100%),
+        radial-gradient(1px 1px at 12% 62%, rgba(255,255,255,.5) 0%, transparent 100%),
+        radial-gradient(2px 2px at 25% 78%, rgba(255,255,255,.3) 0%, transparent 100%),
+        radial-gradient(1px 1px at 38% 90%, rgba(255,255,255,.6) 0%, transparent 100%),
+        radial-gradient(1px 1px at 52% 70%, rgba(255,255,255,.4) 0%, transparent 100%),
+        radial-gradient(1.5px 1.5px at 65% 85%, rgba(255,255,255,.5) 0%, transparent 100%),
+        radial-gradient(1px 1px at 78% 72%, rgba(255,255,255,.7) 0%, transparent 100%),
+        radial-gradient(1px 1px at 88% 90%, rgba(255,255,255,.4) 0%, transparent 100%),
+        radial-gradient(1px 1px at 95% 50%, rgba(255,255,255,.5) 0%, transparent 100%),
+        radial-gradient(2px 2px at  3% 48%, rgba(255,255,255,.3) 0%, transparent 100%),
+        radial-gradient(1px 1px at 47%  3%, rgba(255,255,255,.6) 0%, transparent 100%),
+        radial-gradient(1px 1px at 72% 45%, rgba(255,255,255,.4) 0%, transparent 100%),
+        radial-gradient(1.5px 1.5px at 32% 52%, rgba(255,255,255,.5) 0%, transparent 100%);
+    }
+
+    /* Slow twinkle on a few stars */
+    @keyframes twinkle {
+      0%,100% { opacity: .4 }
+      50%      { opacity: 1  }
+    }
+    .stars::after {
+      content:'';
+      position: absolute; inset: 0;
+      background:
+        radial-gradient(2px 2px at 20% 20%, rgba(167,139,250,.9) 0%, transparent 100%),
+        radial-gradient(2px 2px at 60% 10%, rgba(167,139,250,.7) 0%, transparent 100%),
+        radial-gradient(2px 2px at 85% 65%, rgba(167,139,250,.8) 0%, transparent 100%),
+        radial-gradient(2px 2px at 35% 80%, rgba(167,139,250,.6) 0%, transparent 100%);
+      animation: twinkle 3s ease-in-out infinite;
+    }
+
+    /* ── Orbit ring ── */
+    .orbit-ring {
+      position: absolute;
+      top: 50%; left: 50%;
+      width: calc(var(--r) * 2);
+      height: calc(var(--r) * 2);
+      transform: translate(-50%, -50%);
+      border-radius: 50%;
+      border: 1px solid rgba(167,139,250,.12);
+      animation: ringPulse 6s ease-in-out infinite;
+    }
+    .orbit-ring::after {
+      content: '';
+      position: absolute; inset: -18px;
+      border-radius: 50%;
+      border: 1px solid rgba(167,139,250,.05);
+    }
+    @keyframes ringPulse {
+      0%,100% { box-shadow: 0 0 0   0 rgba(167,139,250,0),   0 0 60px 20px rgba(100,60,200,.06); }
+      50%      { box-shadow: 0 0 0  2px rgba(167,139,250,.06), 0 0 80px 30px rgba(100,60,200,.1); }
+    }
+
+    /* ── Centre placeholder ── */
+    .center {
+      position: absolute;
+      top: 50%; left: 50%;
+      transform: translate(-50%, -50%);
+      text-align: center;
+      z-index: 10;
+    }
+
+    .storyo-title {
+      font-family: 'Fredoka One', cursive;
+      font-size: clamp(1.4rem, 5vmin, 2.2rem);
+      background: linear-gradient(135deg, var(--gold), var(--accent));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      margin-bottom: 10px;
+      letter-spacing: .03em;
+      filter: drop-shadow(0 0 12px rgba(167,139,250,.4));
+    }
+    .center-img {
+      width: clamp(100px, 22vmin, 160px);
+      height: clamp(100px, 22vmin, 160px);
+      border-radius: 50%;
+      overflow: hidden;
+      box-shadow: 0 0 0 2px rgba(167,139,250,.25), 0 0 40px rgba(100,60,200,.3);
+    }
+    .center-img img {
+      width: 100%; height: 100%; object-fit: cover; display: block;
+    }
+    .voices-tagline {
+      font-family: 'Baloo 2', sans-serif;
+      font-size: clamp(.65rem, 2vmin, .82rem);
+      font-weight: 600;
+      color: var(--muted);
+      letter-spacing: .12em;
+      text-transform: uppercase;
+      margin-top: 10px;
+      opacity: .7;
+    }
+
+    /* ── Flag buttons positioned on the orbit ── */
+    .flag-btn {
+      position: absolute;
+      top: 50%; left: 50%;
+      width: clamp(48px, 9vmin, 66px);
+      height: clamp(48px, 9vmin, 66px);
+      border-radius: 50%;
+      border: none;
+      background: var(--bg2);
+      cursor: pointer;
+      display: flex; flex-direction: column;
+      align-items: center; justify-content: center;
+      gap: 3px;
+      text-decoration: none;
+      box-shadow:
+        0 0 0 1.5px rgba(167,139,250,.2),
+        0 4px 20px rgba(0,0,0,.5);
+      transition: transform .22s cubic-bezier(.34,1.56,.64,1),
+                  box-shadow .22s,
+                  background .15s;
+      z-index: 20;
+      /* position set by JS */
+      animation: fadeIn .6s ease both;
+    }
+    @keyframes fadeIn { from{opacity:0;transform:translate(-50%,-50%) scale(.6)} to{opacity:1} }
+
+    .flag-btn:hover {
+      background: rgba(167,139,250,.15);
+      box-shadow:
+        0 0 0 2px rgba(167,139,250,.5),
+        0 8px 32px rgba(100,60,200,.35);
+      z-index: 30;
+    }
+    .flag-btn:active { transform: translate(-50%,-50%) scale(.92) !important; }
+
+    .flag-emoji { font-size: clamp(18px, 4vmin, 26px); line-height: 1; }
+    .flag-label {
+      font-size: clamp(.45rem, 1.3vmin, .58rem);
+      font-weight: 700; color: var(--muted);
+      letter-spacing: .04em;
+      text-transform: uppercase;
+      line-height: 1;
+    }
+    .flag-btn:hover .flag-label { color: var(--accent); }
+
+    /* ── Tooltip ── */
+    .flag-btn::after {
+      content: attr(data-name);
+      position: absolute;
+      bottom: calc(100% + 8px);
+      left: 50%; transform: translateX(-50%);
+      background: rgba(20,15,45,.95);
+      border: 1px solid rgba(167,139,250,.25);
+      border-radius: 8px;
+      padding: 4px 10px;
+      font-size: .72rem; font-weight: 700;
+      color: var(--text); white-space: nowrap;
+      pointer-events: none;
+      opacity: 0; transition: opacity .15s;
+    }
+    .flag-btn:hover::after { opacity: 1; }
+
+    /* ── "Select language" hint ── */
+    .hint {
+      position: absolute;
+      bottom: clamp(10px, 3vmin, 22px);
+      left: 50%; transform: translateX(-50%);
+      font-size: clamp(.6rem, 1.8vmin, .72rem);
+      color: var(--muted); font-weight: 600;
+      letter-spacing: .06em; text-transform: uppercase;
+      white-space: nowrap; z-index: 10;
+      opacity: .6;
+      animation: blink 3s ease-in-out infinite;
+    }
+    @keyframes blink { 0%,100%{opacity:.4} 50%{opacity:.8} }
+
+    /* ── Responsive orbit radius ── */
+    @media (max-width: 480px)  { :root { --r: 130px; } }
+    @media (min-width: 481px) and (max-width: 768px) { :root { --r: 175px; } }
+    @media (min-width: 769px) { :root { --r: 220px; } }
+  </style>
+</head>
+<body>
+
+<div class="stars"></div>
+
+<div class="scene" id="scene">
+
+  <!-- Orbit ring decoration -->
+  <div class="orbit-ring"></div>
+
+  <!-- Centre image -->
+  <div class="center">
+    <div class="storyo-title">Storyo</div>
+    <div class="center-img">
+      <img src="app_screenshot.png" alt="App screenshot"/>
+    </div>
+    <div class="voices-tagline">Voices of love</div>
+  </div>
+
+  <!-- Hint -->
+  <div class="hint">Choose your language</div>
+
+  <!-- Flag buttons — positioned by JS -->
+  <a class="flag-btn" href="manual_en.html" data-name="English"    ><span class="flag-emoji">🇬🇧</span><span class="flag-label">EN</span></a>
+  <a class="flag-btn" href="manual_hu.html" data-name="Magyar"     ><span class="flag-emoji">🇭🇺</span><span class="flag-label">HU</span></a>
+  <a class="flag-btn" href="manual_de.html" data-name="Deutsch"    ><span class="flag-emoji">🇩🇪</span><span class="flag-label">DE</span></a>
+  <a class="flag-btn" href="manual_es.html" data-name="Español"    ><span class="flag-emoji">🇪🇸</span><span class="flag-label">ES</span></a>
+  <a class="flag-btn" href="manual_it.html" data-name="Italiano"   ><span class="flag-emoji">🇮🇹</span><span class="flag-label">IT</span></a>
+  <a class="flag-btn" href="manual_no.html" data-name="Norsk"      ><span class="flag-emoji">🇳🇴</span><span class="flag-label">NO</span></a>
+  <a class="flag-btn" href="manual_fi.html" data-name="Suomi"      ><span class="flag-emoji">🇫🇮</span><span class="flag-label">FI</span></a>
+  <a class="flag-btn" href="manual_sv.html" data-name="Svenska"    ><span class="flag-emoji">🇸🇪</span><span class="flag-label">SV</span></a>
+  <a class="flag-btn" href="manual_uk.html" data-name="Українська" ><span class="flag-emoji">🇺🇦</span><span class="flag-label">UK</span></a>
+  <a class="flag-btn" href="manual_nl.html" data-name="Nederlands" ><span class="flag-emoji">🇳🇱</span><span class="flag-label">NL</span></a>
+  <a class="flag-btn" href="manual_fr.html" data-name="Français"   ><span class="flag-emoji">🇫🇷</span><span class="flag-label">FR</span></a>
+  <a class="flag-btn" href="manual_zh.html" data-name="中文"        ><span class="flag-emoji">🇨🇳</span><span class="flag-label">ZH</span></a>
+
+</div>
+
+<script>
+  function positionFlags() {
+    const scene  = document.getElementById('scene');
+    const btns   = scene.querySelectorAll('.flag-btn');
+    const n      = btns.length;
+    // Read current --r from CSS
+    const r = parseFloat(getComputedStyle(document.documentElement).getPropertyValue('--r')) || 220;
+    // Offset so first flag is at the top (-90°)
+    const offset = -Math.PI / 2;
+
+    btns.forEach((btn, i) => {
+      const angle = offset + (2 * Math.PI * i) / n;
+      const x = 50 + (r / scene.offsetWidth  * 100) * Math.cos(angle);
+      const y = 50 + (r / scene.offsetHeight * 100) * Math.sin(angle);
+      btn.style.left = x + '%';
+      btn.style.top  = y + '%';
+      btn.style.transform = 'translate(-50%, -50%)';
+      btn.style.animationDelay = (i * 0.06) + 's';
+    });
+  }
+
+  positionFlags();
+  window.addEventListener('resize', positionFlags);
+</script>
+</body>
+</html>
