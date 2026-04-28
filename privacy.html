@@ -1,0 +1,316 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Storyo — Privacy Policy</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@400;600;700;800&family=Fredoka+One&display=swap" rel="stylesheet"/>
+  <style>
+    :root {
+      --bg:        #0A0818;
+      --bg2:       #130F26;
+      --bg3:       #1E1A38;
+      --border:    rgba(255,255,255,.07);
+      --text:      #E0E7FF;
+      --muted:     #6B7DB3;
+      --accent:    #A78BFA;
+      --gold:      #FCD34D;
+      --card-bg:   rgba(255,255,255,.04);
+      --card-border: rgba(255,255,255,.09);
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: 'Baloo 2', sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.7;
+      font-size: 1rem;
+      -webkit-font-smoothing: antialiased;
+      min-height: 100vh;
+    }
+
+    /* Stars */
+    body::before {
+      content: '';
+      position: fixed; inset: 0; z-index: 0; pointer-events: none;
+      background-image:
+        radial-gradient(1px 1px at  7% 12%, rgba(255,255,255,.6) 0%, transparent 100%),
+        radial-gradient(1.5px 1.5px at 18% 35%, rgba(255,255,255,.4) 0%, transparent 100%),
+        radial-gradient(1px 1px at 28%  6%, rgba(255,255,255,.7) 0%, transparent 100%),
+        radial-gradient(2px 2px at 42% 22%, rgba(255,255,255,.3) 0%, transparent 100%),
+        radial-gradient(1px 1px at 55% 14%, rgba(255,255,255,.5) 0%, transparent 100%),
+        radial-gradient(1px 1px at 78% 28%, rgba(255,255,255,.6) 0%, transparent 100%),
+        radial-gradient(1px 1px at 90% 18%, rgba(255,255,255,.4) 0%, transparent 100%),
+        radial-gradient(1px 1px at 12% 62%, rgba(255,255,255,.5) 0%, transparent 100%),
+        radial-gradient(2px 2px at 65% 75%, rgba(255,255,255,.3) 0%, transparent 100%),
+        radial-gradient(1px 1px at 88% 90%, rgba(255,255,255,.4) 0%, transparent 100%);
+    }
+
+    .wrap {
+      position: relative; z-index: 1;
+      max-width: 720px;
+      margin: 0 auto;
+      padding: 48px 28px 80px;
+    }
+
+    /* Header */
+    .header {
+      text-align: center;
+      margin-bottom: 48px;
+    }
+
+    .header a {
+      display: inline-flex; align-items: center; gap: 8px;
+      text-decoration: none;
+      color: var(--muted);
+      font-size: .82rem; font-weight: 700;
+      margin-bottom: 24px;
+      transition: color .15s;
+    }
+    .header a:hover { color: var(--accent); }
+
+    .header-logo {
+      font-size: 48px;
+      display: block;
+      margin-bottom: 12px;
+      filter: drop-shadow(0 0 20px rgba(167,139,250,.5));
+    }
+
+    .header h1 {
+      font-family: 'Fredoka One', cursive;
+      font-size: clamp(1.6rem, 4vw, 2.2rem);
+      background: linear-gradient(135deg, var(--gold), var(--accent));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      margin-bottom: 8px;
+    }
+
+    .header .updated {
+      font-size: .75rem;
+      color: var(--muted);
+      font-weight: 600;
+      letter-spacing: .05em;
+    }
+
+    /* Intro */
+    .intro {
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      border-radius: 16px;
+      padding: 20px 24px;
+      margin-bottom: 32px;
+      color: var(--muted);
+      font-size: .95rem;
+    }
+    .intro strong { color: var(--text); }
+
+    /* Section */
+    .section {
+      margin-bottom: 24px;
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      border-radius: 16px;
+      overflow: hidden;
+    }
+
+    .section-header {
+      display: flex; align-items: center; gap: 12px;
+      padding: 16px 20px;
+      border-bottom: 1px solid var(--border);
+      background: rgba(167,139,250,.05);
+    }
+
+    .section-icon {
+      font-size: 22px; flex-shrink: 0;
+    }
+
+    .section-title {
+      font-family: 'Fredoka One', cursive;
+      font-size: 1.1rem;
+      color: var(--text);
+    }
+
+    .section-body {
+      padding: 16px 20px;
+      color: var(--muted);
+      font-size: .9rem;
+    }
+
+    .section-body strong { color: var(--text); }
+
+    .section-body p { margin-bottom: 10px; }
+    .section-body p:last-child { margin-bottom: 0; }
+
+    /* Green checkmark highlight */
+    .safe {
+      display: flex; align-items: flex-start; gap: 10px;
+      background: rgba(52,211,153,.06);
+      border: 1px solid rgba(52,211,153,.15);
+      border-radius: 10px;
+      padding: 12px 14px;
+      margin-top: 10px;
+      color: #6EE7B7;
+      font-size: .85rem;
+    }
+    .safe .safe-icon { flex-shrink: 0; font-size: 16px; margin-top: 1px; }
+
+    /* Contact */
+    .contact {
+      text-align: center;
+      margin-top: 40px;
+      padding: 24px;
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      border-radius: 16px;
+    }
+    .contact p { color: var(--muted); font-size: .88rem; margin-bottom: 8px; }
+    .contact a {
+      color: var(--accent);
+      font-weight: 700;
+      text-decoration: none;
+      font-size: .95rem;
+    }
+    .contact a:hover { text-decoration: underline; }
+
+    /* Footer */
+    .footer {
+      text-align: center;
+      margin-top: 40px;
+      color: var(--muted);
+      font-size: .75rem;
+      opacity: .6;
+    }
+  </style>
+</head>
+<body>
+<div class="wrap">
+
+  <div class="header">
+    <a href="index.html">← Back to manual</a>
+    <span class="header-logo">🔒</span>
+    <h1>Privacy Policy</h1>
+    <div class="updated">Storyo · Last updated: April 2026</div>
+  </div>
+
+  <div class="intro">
+    <strong>Storyo</strong> is a personal bedtime story app for families. We built it with a simple principle: <strong>your voice recordings and your children's data belong to you, not to us.</strong> This policy explains exactly what the app does and does not do with your data.
+  </div>
+
+  <!-- Microphone -->
+  <div class="section">
+    <div class="section-header">
+      <span class="section-icon">🎙️</span>
+      <div class="section-title">Microphone Access</div>
+    </div>
+    <div class="section-body">
+      <p>Storyo requests microphone permission solely to allow parents and grandparents to <strong>record bedtime stories</strong> in their own voice.</p>
+      <p>Audio is recorded directly on your device and saved locally. It is never streamed, transmitted or uploaded to any server by Storyo.</p>
+      <div class="safe">
+        <span class="safe-icon">✅</span>
+        Your voice recordings never leave your device unless you explicitly choose to export and share a story yourself.
+      </div>
+    </div>
+  </div>
+
+  <!-- Data collection -->
+  <div class="section">
+    <div class="section-header">
+      <span class="section-icon">💾</span>
+      <div class="section-title">Data Collection</div>
+    </div>
+    <div class="section-body">
+      <p>Storyo <strong>does not collect any personal data.</strong> The app has no backend server, no database, no analytics, and no user accounts.</p>
+      <p>Everything the app stores — recordings, stories, illustrations, settings and your PIN — is saved locally on your device using IndexedDB (browser storage).</p>
+      <div class="safe">
+        <span class="safe-icon">✅</span>
+        Storyo has no servers. There is no company database containing your name, email, location or usage data.
+      </div>
+    </div>
+  </div>
+
+  <!-- AI & API keys -->
+  <div class="section">
+    <div class="section-header">
+      <span class="section-icon">🤖</span>
+      <div class="section-title">AI Illustrations &amp; API Keys</div>
+    </div>
+    <div class="section-body">
+      <p>Storyo optionally generates illustrations using third-party AI services. If you choose to use this feature, you provide your own API key from one of the supported providers:</p>
+      <p><strong>Anthropic</strong> (Claude SVG) · <strong>OpenAI</strong> (GPT Image 1) · <strong>Google</strong> (Nano Banana)</p>
+      <p>Your API key is stored <strong>only on your device</strong> and is sent <strong>directly from your device to the AI provider's API</strong> when generating an illustration. Storyo never sees, stores or transmits your API key to any other party.</p>
+      <p>The AI provider receives only the illustration prompt text you write. Please refer to the privacy policies of Anthropic, OpenAI and Google for how they handle API requests.</p>
+      <div class="safe">
+        <span class="safe-icon">✅</span>
+        Using AI illustrations is entirely optional. The app works fully without any API key.
+      </div>
+    </div>
+  </div>
+
+  <!-- Children -->
+  <div class="section">
+    <div class="section-header">
+      <span class="section-icon">👶</span>
+      <div class="section-title">Children's Privacy</div>
+    </div>
+    <div class="section-body">
+      <p>Storyo is designed for use by families, including young children. Because the app collects no personal data and has no network communication of its own, there is no risk of children's data being shared with third parties through Storyo.</p>
+      <p>The app contains <strong>no advertising, no tracking, no analytics</strong> and no social features.</p>
+      <div class="safe">
+        <span class="safe-icon">✅</span>
+        Storyo is fully compliant with children's privacy standards including COPPA and GDPR-K.
+      </div>
+    </div>
+  </div>
+
+  <!-- Advertising -->
+  <div class="section">
+    <div class="section-header">
+      <span class="section-icon">🚫</span>
+      <div class="section-title">Advertising &amp; Tracking</div>
+    </div>
+    <div class="section-body">
+      <p>Storyo contains <strong>no advertising</strong> of any kind. We do not use any advertising SDKs, tracking pixels, or analytics libraries.</p>
+      <p>We do not share any data with advertisers or data brokers because we do not collect any data to share.</p>
+    </div>
+  </div>
+
+  <!-- Purchases -->
+  <div class="section">
+    <div class="section-header">
+      <span class="section-icon">💳</span>
+      <div class="section-title">In-App Purchases</div>
+    </div>
+    <div class="section-body">
+      <p>Storyo offers an optional one-time in-app purchase to unlock the full version. All payment processing is handled entirely by <strong>Google Play</strong>. Storyo does not process, store or have access to any payment or billing information.</p>
+      <p>The purchase status (purchased / not purchased) is verified directly with Google Play on your device.</p>
+    </div>
+  </div>
+
+  <!-- Changes -->
+  <div class="section">
+    <div class="section-header">
+      <span class="section-icon">📋</span>
+      <div class="section-title">Changes to This Policy</div>
+    </div>
+    <div class="section-body">
+      <p>If we make any changes to this privacy policy, we will update the "Last updated" date at the top of this page. We encourage you to review this policy periodically.</p>
+      <p>Since Storyo collects no personal data, changes to this policy will generally only reflect changes in the app's features rather than changes in data handling practices.</p>
+    </div>
+  </div>
+
+  <!-- Contact -->
+  <div class="contact">
+    <p>Questions about this privacy policy?</p>
+    <a href="mailto:boylepke@gmail.com">boylepke@gmail.com</a>
+  </div>
+
+  <div class="footer">
+    Storyo · Privacy Policy · © 2026
+  </div>
+
+</div>
+</body>
+</html>
